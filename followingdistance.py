@@ -61,39 +61,39 @@ def distance_for_delay():
 # initialization
 fig, ax1 = plt.subplots()
 plt.subplots_adjust(bottom=0.40)
-ax1.set_xlabel("Minimum initial separation distance (m): %2.2f" % distance_val)
+ax1.set_ylabel("Minimum initial separation distance (m): %2.2f" % distance_val)
 
-ax1.set_ylabel("Velocity (m/s)")
-y = velocity_range
+ax1.set_xlabel("Velocity (m/s)")
+x = velocity_range
 # v1 initial velocity varies
-x = distance_for_v1_vel()
+y = distance_for_v1_vel()
 v1_vel_plot, = ax1.plot(x,y, color='blue')
-v1_vel_dot, = ax1.plot(distance_val, v1_velocity, 'o', color='blue')
+v1_vel_dot, = ax1.plot(v1_velocity, distance_val, 'o', color='blue')
 # v2 initial velocity varies
-x = distance_for_v2_vel()
+y = distance_for_v2_vel()
 v2_vel_plot, = ax1.plot(x,y, color='green')
-v2_vel_dot, = ax1.plot(distance_val, v2_velocity, 'o', color='green')
+v2_vel_dot, = ax1.plot(v2_velocity, distance_val, 'o', color='green')
 
-ax2 = ax1.twinx() # create a second plot using the same x-axis
+ax2 = ax1.twiny() # create a second plot using the same x-axis
 
-ax2.set_ylabel("Deceleration (m/s^2)")
-y = decel_range
+ax2.set_xlabel("Deceleration (m/s^2)")
+x = decel_range
 # v1 deceleration varies
-x = distance_for_v1_dec()
+y = distance_for_v1_dec()
 v1_dec_plot, = ax2.plot(x,y, color='red')
-v1_dec_dot, = ax2.plot(distance_val, v1_decel, 'o', color='red')
+v1_dec_dot, = ax2.plot(v1_decel, distance_val, 'o', color='red')
 # v2 deceleration varies
-x = distance_for_v2_dec()
+y = distance_for_v2_dec()
 v2_dec_plot, = ax2.plot(x,y, color='cyan')
-v2_dec_dot, = ax2.plot(distance_val, v2_decel, 'o', color='cyan')
+v2_dec_dot, = ax2.plot(v2_decel, distance_val, 'o', color='cyan')
 
-ax3 = ax1.twinx() # create third plot
-ax3.get_yaxis().set_visible(False)
-y = delay_range
+ax3 = ax1.twiny() # create third plot
+ax3.get_xaxis().set_visible(False)
+x = delay_range
 # deceleration delay varies
-x = distance_for_delay()
+y = distance_for_delay()
 delay_plot, = ax3.plot(x,y, color='magenta')
-delay_dot, = ax3.plot(distance_val, decel_delay, 'o', color='magenta')
+delay_dot, = ax3.plot(decel_delay, distance_val, 'o', color='magenta')
 
 # Sliders
 axv1vel = plt.axes([.15, 0.25, 0.7, 0.03], facecolor='blue')
@@ -119,22 +119,22 @@ def update(val):
   v2_decel     = -s_v2dec.val
   decel_delay  = s_delay.val
   distance_val = distance(v1_velocity, v2_velocity, v1_decel, v2_decel, decel_delay)
-  v1_vel_plot.set_xdata(distance_for_v1_vel())
-  v2_vel_plot.set_xdata(distance_for_v2_vel())
-  v1_dec_plot.set_xdata(distance_for_v1_dec())
-  v2_dec_plot.set_xdata(distance_for_v2_dec())
-  delay_plot.set_xdata(distance_for_delay())
-  v1_vel_dot.set_xdata(distance_val)
-  v1_vel_dot.set_ydata(v1_velocity)
-  v2_vel_dot.set_xdata(distance_val)
-  v2_vel_dot.set_ydata(v2_velocity)
-  v1_dec_dot.set_xdata(distance_val)
-  v1_dec_dot.set_ydata(v1_decel)
-  v2_dec_dot.set_xdata(distance_val)
-  v2_dec_dot.set_ydata(v2_decel)
-  delay_dot.set_xdata(distance_val)
-  delay_dot.set_ydata(decel_delay)
-  ax1.set_xlabel("Minimum initial separation distance (m): %2.2f" % distance_val)
+  v1_vel_plot.set_ydata(distance_for_v1_vel())
+  v2_vel_plot.set_ydata(distance_for_v2_vel())
+  v1_dec_plot.set_ydata(distance_for_v1_dec())
+  v2_dec_plot.set_ydata(distance_for_v2_dec())
+  delay_plot.set_ydata(distance_for_delay())
+  v1_vel_dot.set_ydata(distance_val)
+  v1_vel_dot.set_xdata(v1_velocity)
+  v2_vel_dot.set_ydata(distance_val)
+  v2_vel_dot.set_xdata(v2_velocity)
+  v1_dec_dot.set_ydata(distance_val)
+  v1_dec_dot.set_xdata(v1_decel)
+  v2_dec_dot.set_ydata(distance_val)
+  v2_dec_dot.set_xdata(v2_decel)
+  delay_dot.set_ydata(distance_val)
+  delay_dot.set_xdata(decel_delay)
+  ax1.set_ylabel("Minimum initial separation distance (m): %2.2f" % distance_val)
 s_v1vel.on_changed(update)
 s_v2vel.on_changed(update)
 s_v1dec.on_changed(update)
