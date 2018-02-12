@@ -77,6 +77,7 @@ v2_vel_dot, = ax1.plot(v2_velocity, distance_val, 'o', color='green')
 ax2 = ax1.twiny() # create a second plot using the same x-axis
 
 ax2.set_xlabel("Deceleration (m/s^2)")
+ax2.invert_xaxis()
 x = decel_range
 # v1 deceleration varies
 y = distance_for_v1_dec()
